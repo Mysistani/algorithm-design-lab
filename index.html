@@ -1,0 +1,547 @@
+﻿<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="assets/app-icon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Algorithm Lab</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Algorithm categories">
+        <div class="brand">
+          <span class="brand-mark">A</span>
+          <div>
+            <h1>Algorithm Lab</h1>
+            <p>Live visual learning</p>
+          </div>
+        </div>
+
+        <nav class="category-list" id="categoryList"></nav>
+      </aside>
+
+      <main class="workspace">
+        <section class="topbar">
+          <div>
+            <p class="eyebrow" id="topicLabel">Sorting</p>
+            <h2 id="topicTitle">Compare algorithms live</h2>
+          </div>
+          <button class="secondary-button compact-button topbar-action" id="theoryButton" type="button" aria-controls="lessonFlyout" aria-expanded="false">Theory</button>
+        </section>
+
+        <section class="control-strip" id="controlStrip" aria-label="Settings">
+          <label class="field" id="speedField">
+            <span>Speed</span>
+            <input id="speedInput" type="range" min="1" max="10" value="5" />
+          </label>
+          <label class="field" id="sizeField">
+            <span id="sizeLabel">Array size</span>
+            <input id="sizeInput" type="range" min="8" max="64" value="20" />
+          </label>
+          <label class="field compact-field" id="datasetField">
+            <span>Data</span>
+            <select id="datasetSelect">
+              <option value="random">Random</option>
+              <option value="almost">Nearly sorted</option>
+              <option value="reverse">Reversed</option>
+            </select>
+          </label>
+          <label class="toggle-field" id="syncField">
+            <input id="syncToggle" type="checkbox" checked />
+            <span>Sync</span>
+          </label>
+        </section>
+
+        <section class="algorithm-picker" id="algorithmPanel" aria-label="Algorithm picker"></section>
+
+        <section class="about-panel" id="aboutPanel" aria-label="About this project" hidden>
+          <div class="about-project">
+            <p class="eyebrow">About This App</p>
+            <h3>Algorithm Lab</h3>
+            <p class="about-lead">
+              Algorithm Lab is an interactive educational application for visualizing and comparing core algorithms from Design and Analysis of Algorithms.
+              It turns abstract concepts such as sorting, graph traversal, shortest paths, recursion, dynamic programming, greedy strategies, and backtracking into live step-by-step visual experiences.
+            </p>
+            <p class="about-lead">
+              The goal of this project is to help students understand how an algorithm makes decisions during execution, not only the final answer.
+              The app supports prepared examples, random data, and custom user input for clearer comparison and experimentation.
+            </p>
+            <div class="about-tags" aria-label="Project highlights">
+              <span>Live visualization</span>
+              <span>Step controls</span>
+              <span>Custom inputs</span>
+              <span>Comparison views</span>
+            </div>
+            <div class="project-meta" aria-label="Project version">
+              <span>Created: 1405/5</span>
+              <span>Version: v1.0.0</span>
+            </div>
+          </div>
+
+          <div class="about-programmer">
+            <img class="profile-photo" src="assets/mohammad-yasin-sistani.jpg" alt="Mohammad Yasin Sistani portrait" />
+            <div class="programmer-copy">
+              <p class="eyebrow">About The Programmer</p>
+              <h3>Mohammad Yasin Sistani</h3>
+              <p class="about-lead">
+                Computer Engineering student and software developer interested in building systems and turning ambitious ideas into real products.
+                My main interests include software engineering, system architecture, algorithm design, and entrepreneurship.
+                More than just using technology, I enjoy understanding it deeply and creating better solutions with it.
+              </p>
+              <div class="about-grid">
+                <article class="about-card">
+                  <span>Course</span>
+                  <strong>Design and Analysis of Algorithms</strong>
+                </article>
+                <article class="about-card">
+                  <span>Instructor</span>
+                  <strong>Dr. Fahimeh Dabbaghi</strong>
+                </article>
+                <article class="about-card">
+                  <span>University</span>
+                  <strong>Vali-e-Asr University of Rafsanjan</strong>
+                </article>
+                <article class="about-card contact-card">
+                  <span>Contact</span>
+                  <strong><a href="https://t.me/mysistani" target="_blank" rel="noopener">@mysistani</a></strong>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="input-lab" id="sortingPanel" aria-label="Sorting input">
+          <div class="input-copy">
+            <p class="eyebrow">Sorting Lab</p>
+            <h3>Array input</h3>
+          </div>
+          <div class="array-input-group">
+            <label class="field">
+              <span>Input array</span>
+              <input id="customArrayInput" class="text-input" type="text" value="18, 7, 3, 21, 12, 9, 1, 15" />
+            </label>
+            <div class="input-actions">
+              <button class="secondary-button" id="sampleArrayButton" type="button">Sample</button>
+              <button class="primary-button" id="applyArrayButton" type="button">Apply</button>
+            </div>
+            <p class="input-hint" id="arrayHint">Enter 2 to 64 numbers separated by commas or spaces.</p>
+          </div>
+        </section>
+
+        <section class="input-lab recursion-lab" id="recursionPanel" aria-label="Recursion input" hidden>
+          <div class="input-copy">
+            <p class="eyebrow">Recursion Lab</p>
+            <h3>Problem inputs</h3>
+          </div>
+          <div class="recursion-input-grid">
+            <label class="field" data-recursion-field="hanoi">
+              <span>Hanoi disks</span>
+              <input id="hanoiDisksInput" class="text-input" type="number" min="1" max="8" value="3" />
+            </label>
+            <label class="field" data-recursion-field="gcd">
+              <span>GCD first number</span>
+              <input id="gcdAInput" class="text-input" type="number" min="1" max="9999" value="70" />
+            </label>
+            <label class="field" data-recursion-field="gcd">
+              <span>GCD second number</span>
+              <input id="gcdBInput" class="text-input" type="number" min="1" max="9999" value="33" />
+            </label>
+            <label class="field" data-recursion-field="factorial">
+              <span>Factorial n</span>
+              <input id="factorialInput" class="text-input" type="number" min="0" max="10" value="5" />
+            </label>
+            <label class="field" data-recursion-field="fibRecursive">
+              <span>Recursive Fibonacci n</span>
+              <input id="fibRecursiveInput" class="text-input" type="number" min="0" max="9" value="6" />
+            </label>
+            <label class="field" data-recursion-field="fibMemo">
+              <span>Memoized Fibonacci n</span>
+              <input id="fibMemoInput" class="text-input" type="number" min="0" max="30" value="10" />
+            </label>
+            <div class="input-actions">
+              <button class="secondary-button" id="sampleRecursionButton" type="button">Sample</button>
+              <button class="primary-button" id="applyRecursionButton" type="button">Apply</button>
+            </div>
+            <p class="input-hint" id="recursionHint">Each selected recursion algorithm uses its own input.</p>
+          </div>
+        </section>
+
+        <section class="input-lab tree-lab" id="treePanel" aria-label="Tree input" hidden>
+          <div class="input-copy">
+            <p class="eyebrow">Trees Lab</p>
+            <h3>Tree inputs</h3>
+          </div>
+          <div class="tree-input-grid">
+            <label class="field">
+              <span>Tree values</span>
+              <input id="treeValuesInput" class="text-input" type="text" value="50, 30, 70, 20, 40, 60, 80" />
+            </label>
+            <label class="field">
+              <span>Search value</span>
+              <input id="treeSearchInput" class="text-input" type="number" value="60" />
+            </label>
+            <label class="field">
+              <span>Insert value</span>
+              <input id="treeInsertInput" class="text-input" type="number" value="65" />
+            </label>
+            <label class="field">
+              <span>Delete value</span>
+              <input id="treeDeleteInput" class="text-input" type="number" value="30" />
+            </label>
+            <div class="input-actions">
+              <button class="secondary-button" id="sampleTreeButton" type="button">Sample</button>
+              <button class="primary-button" id="applyTreeButton" type="button">Apply</button>
+            </div>
+            <p class="input-hint" id="treeHint">Values build both the BST and heap examples.</p>
+          </div>
+        </section>
+
+        <section class="input-lab search-lab" id="searchPanel" aria-label="Search input" hidden>
+          <div class="input-copy">
+            <p class="eyebrow">Search Lab</p>
+            <h3>Search inputs</h3>
+          </div>
+          <div class="search-input-grid">
+            <label class="field">
+              <span>Input array</span>
+              <input id="searchArrayInput" class="text-input" type="text" value="4, 9, 12, 17, 23, 31, 38, 44, 52, 68" />
+            </label>
+            <label class="field">
+              <span>Target</span>
+              <input id="searchTargetInput" class="text-input" type="number" value="31" />
+            </label>
+            <div class="input-actions">
+              <button class="secondary-button" id="sampleSearchButton" type="button">Sample</button>
+              <button class="primary-button" id="applySearchButton" type="button">Apply</button>
+            </div>
+            <p class="input-hint" id="searchHint">Sorted searches use a sorted copy of the array.</p>
+          </div>
+        </section>
+
+        <section class="input-lab divide-lab" id="dividePanel" aria-label="Divide and conquer input" hidden>
+          <div class="input-copy">
+            <p class="eyebrow">Divide & Conquer</p>
+            <h3>Problem inputs</h3>
+          </div>
+          <div class="divide-input-grid">
+            <label class="field" data-divide-field="array">
+              <span>Array</span>
+              <input id="divideArrayInput" class="text-input" type="text" value="18, 7, 3, 21, 12, 9, 1, 15" />
+            </label>
+            <label class="field" data-divide-field="target">
+              <span>Search target</span>
+              <input id="divideTargetInput" class="text-input" type="number" value="12" />
+            </label>
+            <label class="field" data-divide-field="big">
+              <span>Big number A</span>
+              <input id="bigAInput" class="text-input" type="text" value="12345678" />
+            </label>
+            <label class="field" data-divide-field="big">
+              <span>Big number B</span>
+              <input id="bigBInput" class="text-input" type="text" value="87654321" />
+            </label>
+            <label class="field" data-divide-field="matrix">
+              <span>Matrix A</span>
+              <input id="matrixAInput" class="text-input" type="text" value="1,2;3,4" />
+            </label>
+            <label class="field" data-divide-field="matrix">
+              <span>Matrix B</span>
+              <input id="matrixBInput" class="text-input" type="text" value="5,6;7,8" />
+            </label>
+            <label class="field" data-divide-field="teams">
+              <span>Teams</span>
+              <input id="teamsInput" class="text-input" type="number" min="2" max="16" value="8" />
+            </label>
+            <div class="input-actions">
+              <button class="secondary-button" id="sampleDivideButton" type="button">Sample</button>
+              <button class="primary-button" id="applyDivideButton" type="button">Apply</button>
+            </div>
+            <p class="input-hint" id="divideHint">Tournament scheduling follows tournament.py and uses - for bye days.</p>
+          </div>
+        </section>
+
+        <section class="input-lab dynamic-lab" id="dynamicPanel" aria-label="Dynamic programming input" hidden>
+          <div class="input-copy">
+            <p class="eyebrow">Dynamic Programming</p>
+            <h3>State table inputs</h3>
+          </div>
+          <div class="dynamic-input-grid">
+            <label class="field" data-dynamic-field="matrixChain">
+              <span>Matrix dimensions</span>
+              <input id="matrixChainInput" class="text-input" type="text" value="10, 30, 5, 60" />
+            </label>
+            <label class="field" data-dynamic-field="knapsack">
+              <span>Items weight:value</span>
+              <input id="knapsackItemsInput" class="text-input" type="text" value="2:6, 3:10, 5:12, 6:18, 7:22, 4:14" />
+            </label>
+            <label class="field" data-dynamic-field="knapsack">
+              <span>Capacity</span>
+              <input id="knapsackCapacityInput" class="text-input" type="number" min="1" max="80" value="14" />
+            </label>
+            <label class="field" data-dynamic-field="lcs">
+              <span>LCS string A</span>
+              <input id="lcsAInput" class="text-input" type="text" value="ABCBDAB" />
+            </label>
+            <label class="field" data-dynamic-field="lcs">
+              <span>LCS string B</span>
+              <input id="lcsBInput" class="text-input" type="text" value="BDCABA" />
+            </label>
+            <label class="field" data-dynamic-field="lis">
+              <span>LIS values</span>
+              <input id="lisInput" class="text-input" type="text" value="10, 22, 9, 33, 21, 50, 41, 60" />
+            </label>
+            <label class="field" data-dynamic-field="treePath">
+              <span>Tree values</span>
+              <input id="maxPathTreeInput" class="text-input" type="text" value="10, 2, 10, 20, 1, -25, 3, 4" />
+            </label>
+            <div class="input-actions">
+              <button class="secondary-button" id="sampleDynamicButton" type="button">Sample</button>
+              <button class="primary-button" id="applyDynamicButton" type="button">Apply</button>
+            </div>
+            <p class="input-hint" id="dynamicHint">Inputs shown for selected dynamic programming algorithms.</p>
+          </div>
+        </section>
+
+        <section class="input-lab greedy-lab" id="greedyPanel" aria-label="Greedy input" hidden>
+          <div class="input-copy">
+            <p class="eyebrow">Greedy</p>
+            <h3>Local-choice inputs</h3>
+          </div>
+          <div class="greedy-input-grid">
+            <label class="field" data-greedy-field="activities">
+              <span>Activities start-finish</span>
+              <input id="greedyActivitiesInput" class="text-input" type="text" value="1-4, 3-5, 0-6, 5-7, 3-9, 5-9, 6-10, 8-11, 8-12, 2-14, 12-16" />
+            </label>
+            <label class="field" data-greedy-field="knapsack">
+              <span>Items weight:value</span>
+              <input id="greedyItemsInput" class="text-input" type="text" value="10:60, 20:100, 30:120" />
+            </label>
+            <label class="field" data-greedy-field="knapsack">
+              <span>Capacity</span>
+              <input id="greedyCapacityInput" class="text-input" type="number" min="1" max="999" value="50" />
+            </label>
+            <label class="field" data-greedy-field="jobs">
+              <span>Jobs id:deadline:profit</span>
+              <input id="greedyJobsInput" class="text-input" type="text" value="A:2:100, B:1:19, C:2:27, D:1:25, E:3:15" />
+            </label>
+            <label class="field" data-greedy-field="huffman">
+              <span>Symbols char:freq</span>
+              <input id="huffmanInput" class="text-input" type="text" value="a:5, b:9, c:12, d:13, e:16, f:45" />
+            </label>
+            <label class="field" data-greedy-field="tsp">
+              <span>TSP distance matrix</span>
+              <input id="tspMatrixInput" class="text-input" type="text" value="0,10,15,20;10,0,35,25;15,35,0,30;20,25,30,0" />
+            </label>
+            <label class="field" data-greedy-field="tsp">
+              <span>Start city</span>
+              <input id="tspStartInput" class="text-input" type="number" min="1" max="12" value="1" />
+            </label>
+            <div class="input-actions">
+              <button class="secondary-button" id="sampleGreedyButton" type="button">Sample</button>
+              <button class="primary-button" id="applyGreedyButton" type="button">Apply</button>
+            </div>
+            <p class="input-hint" id="greedyHint">Inputs shown for selected greedy algorithms.</p>
+          </div>
+        </section>
+
+        <section class="input-lab compare-lab" id="comparePanel" aria-label="Comparison problem input" hidden>
+          <div class="input-copy">
+            <p class="eyebrow">Comparisons</p>
+            <h3>Shared problem inputs</h3>
+          </div>
+          <div class="compare-input-grid">
+            <label class="field" data-compare-field="activities">
+              <span>Activities start-finish</span>
+              <input id="compareActivitiesInput" class="text-input" type="text" value="1-4, 3-5, 0-6, 5-7, 3-9, 5-9, 6-10, 8-11, 8-12, 2-14, 12-16" />
+            </label>
+            <label class="field" data-compare-field="knapsack">
+              <span>Items weight:value</span>
+              <input id="compareItemsInput" class="text-input" type="text" value="10:60, 20:100, 30:120" />
+            </label>
+            <label class="field" data-compare-field="knapsack">
+              <span>Capacity</span>
+              <input id="compareCapacityInput" class="text-input" type="number" min="1" max="80" value="50" />
+            </label>
+            <label class="field" data-compare-field="shortest">
+              <span>Shortest path matrix</span>
+              <input id="compareGraphMatrixInput" class="text-input" type="text" value="0,1,4,0;0,0,2,7;0,0,0,3;0,0,0,0" />
+            </label>
+            <label class="field" data-compare-field="shortest">
+              <span>Source</span>
+              <input id="compareGraphSourceInput" class="text-input" type="number" min="1" max="8" value="1" />
+            </label>
+            <label class="field" data-compare-field="shortest">
+              <span>Target</span>
+              <input id="compareGraphTargetInput" class="text-input" type="number" min="1" max="8" value="4" />
+            </label>
+            <label class="field" data-compare-field="tsp">
+              <span>TSP distance matrix</span>
+              <input id="compareTspMatrixInput" class="text-input" type="text" value="0,10,15,20;10,0,35,25;15,35,0,30;20,25,30,0" />
+            </label>
+            <label class="field" data-compare-field="tsp">
+              <span>Start city</span>
+              <input id="compareTspStartInput" class="text-input" type="number" min="1" max="8" value="1" />
+            </label>
+            <label class="field" data-compare-field="hamiltonian">
+              <span>Hamiltonian adjacency matrix</span>
+              <input id="compareHamiltonianMatrixInput" class="text-input" type="text" value="0,1,1,0,1;1,0,1,1,1;1,1,0,1,0;0,1,1,0,1;1,1,0,1,0" />
+            </label>
+            <div class="input-actions">
+              <button class="secondary-button" id="sampleCompareButton" type="button">Sample</button>
+              <button class="primary-button" id="applyCompareButton" type="button">Apply</button>
+            </div>
+            <p class="input-hint" id="compareHint">Use one shared input to compare different solution strategies.</p>
+          </div>
+        </section>
+
+        <section class="input-lab backtracking-lab" id="backtrackingPanel" aria-label="Backtracking input" hidden>
+          <div class="input-copy">
+            <p class="eyebrow">Backtracking</p>
+            <h3>Decision search inputs</h3>
+          </div>
+          <div class="backtracking-input-grid">
+            <label class="field" data-backtracking-field="nqueen">
+              <span>N-Queen board size</span>
+              <input id="nQueenSizeInput" class="text-input" type="number" min="4" max="8" value="4" />
+            </label>
+            <label class="field" data-backtracking-field="subset">
+              <span>Subset values</span>
+              <input id="subsetValuesInput" class="text-input" type="text" value="3, 34, 4, 12, 5, 2" />
+            </label>
+            <label class="field" data-backtracking-field="subset">
+              <span>Subset target</span>
+              <input id="subsetTargetInput" class="text-input" type="number" value="9" />
+            </label>
+            <label class="field" data-backtracking-field="hamiltonian">
+              <span>Hamiltonian adjacency matrix</span>
+              <input id="hamiltonianMatrixInput" class="text-input" type="text" value="0,1,1,0,1;1,0,1,1,1;1,1,0,1,0;0,1,1,0,1;1,1,0,1,0" />
+            </label>
+            <label class="field" data-backtracking-field="tsp">
+              <span>TSP distance matrix</span>
+              <input id="tspBacktrackingMatrixInput" class="text-input" type="text" value="0,10,15,20;10,0,35,25;15,35,0,30;20,25,30,0" />
+            </label>
+            <label class="field" data-backtracking-field="tsp">
+              <span>Start city</span>
+              <input id="tspBacktrackingStartInput" class="text-input" type="number" min="1" max="8" value="1" />
+            </label>
+            <div class="input-actions">
+              <button class="secondary-button" id="sampleBacktrackingButton" type="button">Sample</button>
+              <button class="primary-button" id="applyBacktrackingButton" type="button">Apply</button>
+            </div>
+            <p class="input-hint" id="backtrackingHint">Inputs shown for selected backtracking algorithms.</p>
+          </div>
+        </section>
+
+        <section class="input-lab branch-bound-lab" id="branchBoundPanel" aria-label="Branch and bound input" hidden>
+          <div class="input-copy">
+            <p class="eyebrow">Branch & Bound</p>
+            <h3>Bounded search inputs</h3>
+          </div>
+          <div class="branch-bound-input-grid">
+            <label class="field" data-branch-bound-field="knapsack">
+              <span>Items weight:value</span>
+              <input id="branchBoundItemsInput" class="text-input" type="text" value="10:60, 20:100, 30:120" />
+            </label>
+            <label class="field" data-branch-bound-field="knapsack">
+              <span>Capacity</span>
+              <input id="branchBoundCapacityInput" class="text-input" type="number" min="1" max="80" value="50" />
+            </label>
+            <label class="field" data-branch-bound-field="tsp">
+              <span>TSP distance matrix</span>
+              <input id="branchBoundTspMatrixInput" class="text-input" type="text" value="0,10,15,20;10,0,35,25;15,35,0,30;20,25,30,0" />
+            </label>
+            <label class="field" data-branch-bound-field="tsp">
+              <span>Start city</span>
+              <input id="branchBoundTspStartInput" class="text-input" type="number" min="1" max="8" value="1" />
+            </label>
+            <div class="input-actions">
+              <button class="secondary-button" id="sampleBranchBoundButton" type="button">Sample</button>
+              <button class="primary-button" id="applyBranchBoundButton" type="button">Apply</button>
+            </div>
+            <p class="input-hint" id="branchBoundHint">Inputs shown for selected branch and bound algorithms.</p>
+          </div>
+        </section>
+
+        <section class="graph-lab" id="graphPanel" aria-label="Graph editor" hidden>
+          <div class="graph-toolbar">
+            <div>
+              <p class="eyebrow">Graph Lab</p>
+              <h3>Weighted graph editor</h3>
+            </div>
+            <div class="input-actions">
+              <select id="graphSourceSelect" class="graph-node-select" aria-label="Start node"></select>
+              <select id="graphTargetSelect" class="graph-node-select" aria-label="Target node"></select>
+              <select id="graphDirectionSelect" class="graph-mode-select" aria-label="Graph direction">
+                <option value="directed">Directed</option>
+                <option value="undirected">Undirected</option>
+              </select>
+              <button class="secondary-button" id="graphSampleButton" type="button">Sample</button>
+              <button class="secondary-button" id="graphRandomButton" type="button">Random</button>
+              <button class="secondary-button" id="graphAddNodeButton" type="button">Add node</button>
+              <button class="secondary-button" id="graphDeleteButton" type="button">Delete</button>
+              <button class="secondary-button" id="graphClearButton" type="button">Clear</button>
+              <button class="secondary-button" id="graphFullscreenButton" type="button">Fullscreen</button>
+              <button class="primary-button" id="graphApplyButton" type="button">Run graph</button>
+            </div>
+          </div>
+          <label class="field graph-zoom-field">
+            <span>Zoom</span>
+            <input id="graphZoomInput" type="range" min="70" max="220" value="100" />
+          </label>
+          <div class="graph-editor-wrap">
+            <canvas id="graphEditorCanvas" aria-label="Interactive graph editor"></canvas>
+          </div>
+          <div class="graph-status" id="graphStatus">Double-click a node to start an edge, then click the target node.</div>
+        </section>
+
+        <section class="metrics-band" id="metricsBand" aria-label="Metrics"></section>
+
+        <section class="visual-grid" id="visualGrid" aria-label="Algorithm views"></section>
+
+        <section class="comparison-panel" id="comparisonPanel" aria-label="Complexity comparison"></section>
+
+        <section class="bottom-runbar" id="bottomRunbar" aria-label="Run controls">
+          <div class="runbar-status">
+            <span id="runbarTopic">Algorithm runner</span>
+            <strong id="runbarState">Ready</strong>
+          </div>
+          <div class="toolbar">
+            <button class="icon-button" id="resetButton" title="Reset" aria-label="Reset">
+              <span>Reset</span>
+            </button>
+            <button class="icon-button" id="stepBackButton" title="Step back" aria-label="Step back">
+              <span>Back</span>
+            </button>
+            <button class="icon-button" id="stepButton" title="Step forward" aria-label="Step forward">
+              <span>Next</span>
+            </button>
+            <button class="run-button" id="runButton" aria-label="Play or pause">
+              <span id="runIcon" aria-hidden="true"></span>
+              <span id="runLabel">Run</span>
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="flyout-backdrop" id="lessonBackdrop" hidden></div>
+    <aside class="lesson-flyout" id="lessonFlyout" aria-label="Algorithm theory" aria-hidden="true">
+      <header class="flyout-header">
+        <div>
+          <p class="eyebrow">Learning Notes</p>
+          <h3 id="lessonFlyoutTitle">Sorting Theory</h3>
+        </div>
+        <button class="icon-button" id="lessonCloseButton" type="button" title="Close" aria-label="Close">&times;</button>
+      </header>
+      <label class="field">
+        <span>Algorithm explanation</span>
+        <select id="lessonAlgorithmSelect" class="text-input"></select>
+      </label>
+      <article class="lesson-card" id="lessonContent"></article>
+    </aside>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+
